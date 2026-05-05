@@ -1,6 +1,7 @@
 # PolicyLens
 
-**Live site:** [https://is-219-finalp2-ahs72.vercel.app/](https://is-219-finalp2-ahs72.vercel.app/)
+**Live site:** [https://is-219-finalp2-ahs72.vercel.app/](https://is-219-finalp2-ahs72.vercel.app/)  
+**Author:** [Adam Soto](https://www.linkedin.com/in/adam-soto-909586327/) — Applied AI Engineering Student at NJIT
 
 An AI-powered web application that helps users understand complex health insurance policy documents through structured extraction and natural language Q&A.
 
