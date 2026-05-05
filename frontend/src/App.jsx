@@ -3,7 +3,7 @@ import UploadZone from "./components/UploadZone";
 import PolicySummary from "./components/PolicySummary";
 import ChatInterface from "./components/ChatInterface";
 
-export const API_BASE = "http://localhost:8000";
+export const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function App() {
   const [docId, setDocId] = useState(null);
