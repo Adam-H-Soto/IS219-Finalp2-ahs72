@@ -96,6 +96,8 @@ cp .env.example backend/.env
 
 ### 3. Install Python dependencies
 
+Run this from the **project root** (where `requirements.txt` lives):
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -104,7 +106,7 @@ pip install -r requirements.txt
 
 ```bash
 cd backend
-uvicorn main:app --reload --port 8000
+python -m uvicorn main:app --reload --port 8000
 ```
 
 ### 5. Install frontend dependencies
@@ -125,9 +127,11 @@ npm run dev
 
 ## Running the Tests
 
+Run from the **`backend/`** directory:
+
 ```bash
 cd backend
-pytest tests/ -v
+python -m pytest tests/ -v
 ```
 
 ---
