@@ -1,5 +1,7 @@
 # PolicyLens
 
+**Live site:** [https://is-219-finalp2-ahs72.vercel.app/](https://is-219-finalp2-ahs72.vercel.app/)
+
 An AI-powered web application that helps users understand complex health insurance policy documents through structured extraction and natural language Q&A.
 
 ---
