@@ -2,11 +2,82 @@ import { useEffect, useRef, useState } from "react";
 import SourceContext from "./SourceContext";
 import { API_BASE } from "../App";
 
+const SYMBOLS = [
+  "🩺","❤️","🌿","✨","🩻","💊","🛡️","☀️","💙","🌱",
+  "🤝","⭐","🩹","🌸","💚","🔬","🌈","🫶","💡","🧬",
+  "🌙","🦋","🏥","💫","🌻","🕊️",
+];
+
+const QUOTES = [
+  "You deserve to understand your coverage",
+  "Healthcare clarity is self-care",
+  "You've got this. We've got you.",
+  "Knowledge is your best coverage",
+  "No question is too small",
+  "Your health, your terms",
+  "Peace of mind starts here",
+  "You are not alone in this",
+];
+
+const rand = (min, max) => Math.random() * (max - min) + min;
+
 export default function ChatInterface({ docId, messages, setMessages }) {
   const [input, setInput] = useState("");
   const [isAsking, setIsAsking] = useState(false);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
+  const bgRef = useRef(null);
+
+  useEffect(() => {
+    const el = bgRef.current;
+    if (!el) return;
+    el.innerHTML = "";
+
+    // Symbols
+    for (let i = 0; i < 28; i++) {
+      const span = document.createElement("span");
+      span.textContent = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+      const rot = rand(-20, 20);
+      span.style.cssText = [
+        "position:absolute",
+        `left:${rand(2, 92)}%`,
+        `top:${rand(3, 90)}%`,
+        `font-size:${rand(16, 34)}px`,
+        "opacity:0",
+        `animation:floatFade ${rand(8, 18).toFixed(1)}s ease-in-out ${(-rand(0, 14)).toFixed(1)}s infinite`,
+        "pointer-events:none",
+        "user-select:none",
+      ].join(";");
+      span.style.setProperty("--peak", rand(0.04, 0.11).toFixed(3));
+      span.style.setProperty("--rot", `${rot.toFixed(1)}deg`);
+      span.style.setProperty("--rot-end", `${(rot + rand(-5, 5)).toFixed(1)}deg`);
+      el.appendChild(span);
+    }
+
+    // Quotes
+    QUOTES.forEach((text) => {
+      const span = document.createElement("span");
+      span.textContent = text;
+      const rot = rand(-20, 20);
+      span.style.cssText = [
+        "position:absolute",
+        `left:${rand(2, 92)}%`,
+        `top:${rand(3, 90)}%`,
+        "font-size:10.5px",
+        "font-family:var(--font-display)",
+        "color:rgba(0,201,167,0.9)",
+        "white-space:nowrap",
+        "opacity:0",
+        `animation:floatFade ${rand(14, 22).toFixed(1)}s ease-in-out ${(-rand(0, 18)).toFixed(1)}s infinite`,
+        "pointer-events:none",
+        "user-select:none",
+      ].join(";");
+      span.style.setProperty("--peak", rand(0.04, 0.08).toFixed(3));
+      span.style.setProperty("--rot", `${rot.toFixed(1)}deg`);
+      span.style.setProperty("--rot-end", `${(rot + rand(-5, 5)).toFixed(1)}deg`);
+      el.appendChild(span);
+    });
+  }, []);
 
   const isDisabled = !docId;
 
@@ -57,6 +128,7 @@ export default function ChatInterface({ docId, messages, setMessages }) {
 
   return (
     <div style={styles.container}>
+      <div className="chat-bg" ref={bgRef} style={styles.chatBg} />
       <div style={styles.titleBar}>
         <span style={styles.titleIcon}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -163,6 +235,13 @@ const styles = {
     flexDirection: "column",
     height: "100%",
     overflow: "hidden",
+    position: "relative",
+  },
+  chatBg: {
+    position: "absolute",
+    inset: 0,
+    overflow: "hidden",
+    zIndex: 0,
   },
   titleBar: {
     display: "flex",
@@ -175,6 +254,8 @@ const styles = {
     borderBottom: "1px solid var(--border)",
     flexShrink: 0,
     letterSpacing: "0.3px",
+    position: "relative",
+    zIndex: 1,
   },
   titleIcon: {
     color: "var(--accent)",
@@ -188,6 +269,8 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: 16,
+    position: "relative",
+    zIndex: 1,
   },
   emptyState: {
     display: "flex",
@@ -306,6 +389,8 @@ const styles = {
     borderTop: "1px solid var(--border)",
     backgroundColor: "var(--bg-secondary)",
     flexShrink: 0,
+    position: "relative",
+    zIndex: 1,
   },
   inputDisabled: {
     opacity: 0.5,
